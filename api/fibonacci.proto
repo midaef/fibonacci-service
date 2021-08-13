@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.fibonacci;
+
+option go_package = "./fibonacci";
+
+service Fibonacci {
+  rpc FibonacciSequences(FibonacciSequencesRequest) returns (FibonacciSequencesResponse);
+}
+
+message FibonacciSequencesRequest {
+  uint64 x = 1;
+  uint64 y = 2;
+}
+
+message FibonacciSequencesResponse {
+  repeated uint64 fibonacci_sequences = 1;
+}
+

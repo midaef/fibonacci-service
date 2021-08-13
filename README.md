@@ -1,1 +1,66 @@
-# fibonacci-service
+# FIBONACCI-SERVICE
+
+## PORT: 7001
+
+## LOCAL CONFIGURATION
+
+### REQUIREMENTS
+- go 1.16
+- docker & docker-compose
+- redis
+- evans
+- bloom rpc
+- postman
+
+## DOCKER
+
+### Build
+```shell
+docker-compose build
+```
+### Run
+```shell
+docker-compose up
+```
+
+## Go
+
+Create **local-config.yaml** file in config directory:
+```yaml
+appconfig:
+  ip: "0.0.0.0"
+  grpc_port: "7001"
+  http_port: "8080"
+redis:
+  db: 0
+  host: "0.0.0.0"
+  port: "6379"
+  password: ""
+```
+
+### Build
+```shell
+go run cmd/main.go -config-path ./config/local-config.yaml
+```
+### Run
+```shell
+./driver-service
+```
+
+## Testing GRPC
+
+### Install [EVANS](https://github.com/ktr0731/evans)
+
+### Run
+```shell
+make evans name=fibonacci port=7001
+
+call FibonacciSequences
+```
+
+## Testing HTTP
+
+### Run 
+```shell
+curl -XPOST -H "Content-type: application/json" -d '{"x":5, "y":15}' 'http://localhost:8080/api/v1/fibonacci_sequences'
+```

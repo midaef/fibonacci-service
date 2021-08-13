@@ -1,0 +1,9 @@
+appconfig:
+  ip: "0.0.0.0"
+  grpc_port: "7001"
+  http_port: "8080"
+redis:
+  db: 0
+  host: "0.0.0.0"
+  port: "6379"
+  password: ""

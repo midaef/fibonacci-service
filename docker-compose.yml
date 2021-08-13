@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  fibonacci-server:
+    build: ./
+    ports:
+      - 7001:7001
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "6379:6379"

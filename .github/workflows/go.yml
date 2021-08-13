@@ -18,6 +18,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 6379:6379
     
     steps:
     - uses: actions/checkout@v2
@@ -27,12 +29,12 @@ jobs:
       with:
         go-version: 1.16
 
-    env:
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-
     - name: Build
       run: go build -o fibonacci-service cmd/main.go
 
     - name: Test
+      env:
+        REDIS_HOST: localhost
+        REDIS_PORT: 6379
+        
       run: go test -v ./...

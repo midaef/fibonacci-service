@@ -25,6 +25,8 @@ docker-compose up
 
 ## Go
 
+### Install [REDIS](https://redis.io/download)
+
 Create **local-config.yaml** file in config directory:
 ```yaml
 appconfig:
@@ -40,25 +42,55 @@ redis:
 
 ### Build
 ```shell
-go run cmd/main.go -config-path ./config/local-config.yaml
+go build -o fibonacci-service cmd/main.go -config-path ./config/local-config.yaml
 ```
 ### Run
 ```shell
-./driver-service
+./fibonacci-service
+```
+
+### OR
+
+```shell
+go run cmd/main.go -config-path ./config/local-config.yaml
 ```
 
 ## Testing GRPC
 
-### Install [EVANS](https://github.com/ktr0731/evans)
+### Install [EVANS](https://github.com/ktr0731/evans) or [BloomRPC](https://github.com/uw-labs/bloomrpc)
 
-### Run
+### Run for evans with Makefile
 ```shell
 make evans name=fibonacci port=7001
 
 call FibonacciSequences
 ```
 
+### OR
+
+### Run for evans without Makefile
+```shell
+evans api/fibonacci.proto -p 7001
+```
+
 ## Testing HTTP
+
+```shell
+POST http://localhost:8080/api/v1/fibonacci_sequences
+```
+
+### Body
+
+```shell
+{
+  "x":5,
+  "y":15
+}
+```
+
+### Install [POSTMAN](https://www.postman.com/downloads/)
+
+### OR
 
 ### Run 
 ```shell

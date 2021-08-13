@@ -4,7 +4,7 @@ SOURCES = $(sort $(dir $(wildcard ./api/*/)))
 
 .PHONY: build-go
 build-go:
-	go build -v ./cmd/app
+	go build -v ./cmd/
 
 .PHONY: generate-pb
 generate-pb:

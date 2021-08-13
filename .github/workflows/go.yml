@@ -27,12 +27,12 @@ jobs:
       with:
         go-version: 1.16
 
-    env:
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-
     - name: Build
       run: go build -o fibonacci-service cmd/main.go
 
     - name: Test
+      env:
+        REDIS_HOST: redis
+        REDIS_PORT: 6379
+        
       run: go test -v ./...

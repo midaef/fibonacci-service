@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/go-redis/redis/v8 v8.11.3 // indirect
 	github.com/lib/pq v1.10.2 // indirect
+	github.com/stretchr/testify v1.7.0 // indirect
 	go.uber.org/zap v1.19.0 // indirect
 	google.golang.org/grpc v1.40.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect

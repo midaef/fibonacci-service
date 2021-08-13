@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"github.com/go-redis/redis/v8"
 )
 
@@ -18,7 +19,7 @@ func NewFibonacciRepository(rdb *redis.Client) *Fibonacci {
 func (f *Fibonacci) GetFibonacciSequences(ctx context.Context, key string) (string, error) {
 	value, err := f.rdb.Get(ctx, key).Result()
 	switch {
-	case err == redis.Nil:
+	case errors.Is(err, redis.Nil):
 		return "", nil
 	case err != nil:
 		return "", err

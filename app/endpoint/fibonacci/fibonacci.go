@@ -11,6 +11,7 @@ type IFibonacciService interface {
 	GetFibonacciSequences(ctx context.Context, key string) (string, error)
 	SetFibonacciSequences(ctx context.Context, key string, value string) error
 	FibonacciSequences(ctx context.Context, x uint64, y uint64) ([]uint64, error)
+	Validate(x uint64, y uint64) error
 }
 
 type FibonacciEndpoint struct {

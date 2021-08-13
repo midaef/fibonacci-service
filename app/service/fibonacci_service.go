@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"strconv"
 )
 
@@ -51,6 +53,7 @@ func (s *Service) Fibonacci(ctx context.Context, n uint64) (uint64, error) {
 	if n == 0 {
 		return 0, nil
 	}
+
 	if n == 1 {
 		return 1, nil
 	}
@@ -94,4 +97,18 @@ func (s *Service) Fibonacci(ctx context.Context, n uint64) (uint64, error) {
 	}
 
 	return uint64(firstFibonacci) + uint64(secondFibonacci), nil
+}
+
+func (s *Service) Validate(x uint64, y uint64) error {
+	if x < 0 || y < 0 {
+		return status.Error(codes.InvalidArgument, "x and y cannot be less than 0")
+	} else if x > y {
+		return status.Error(codes.InvalidArgument, "y cannot be less than x")
+	} else if x == y {
+		return status.Error(codes.InvalidArgument, "x cannot be equal to y")
+	} else if y > 93 {
+		return status.Error(codes.InvalidArgument, "y cannot be greater than 93")
+	}
+
+	return nil
 }

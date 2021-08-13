@@ -35,7 +35,7 @@ func (app *App) StartApp() error {
 
 	rdb := redis.NewRedisClient(app.config)
 
-	app.logger.Info("redis successfully connected",
+	app.logger.Info("successfully connected to Redis",
 		zap.String("host", app.config.Redis.Host+":"+app.config.Redis.Port),
 	)
 

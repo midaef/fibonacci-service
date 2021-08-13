@@ -18,31 +18,50 @@ func (f *FibonacciEndpoint) FibonacciSequencesHTTP(w http.ResponseWriter, r *htt
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			f.responseWriter(http.StatusInternalServerError, map[string]interface{}{
-				"error": err,
+				"error": err.Error(),
 			}, w)
+
+			return
 		}
 
 		err = json.Unmarshal(body, &req)
 		if err != nil {
 			f.responseWriter(http.StatusBadRequest, map[string]interface{}{
-				"error": err,
+				"error": err.Error(),
 			}, w)
+
+			return
+		}
+
+		err = f.service.Validate(req.X, req.Y)
+		if err != nil {
+			f.responseWriter(http.StatusBadRequest, map[string]interface{}{
+				"error": err.Error(),
+			}, w)
+
+			return
 		}
 
 		fib, err := f.service.FibonacciSequences(r.Context(), req.X, req.Y)
 		if err != nil {
 			f.responseWriter(http.StatusInternalServerError, map[string]interface{}{
-				"error": err,
+				"error": err.Error(),
 			}, w)
+
+			return
 		}
 
 		f.responseWriter(http.StatusOK, map[string]interface{}{
 			"fibonacci_sequences": fib,
 		}, w)
+
+		return
 	} else {
 		f.responseWriter(http.StatusMethodNotAllowed, map[string]interface{}{
 			"error": "method not allowed",
 		}, w)
+
+		return
 	}
 }
 
@@ -54,14 +73,18 @@ func (f *FibonacciEndpoint) responseWriter(statusCode int, data interface{}, w h
 	json, err := json.Marshal(data)
 	if err != nil {
 		f.responseWriter(http.StatusInternalServerError, map[string]interface{}{
-			"error": err,
+			"error": err.Error(),
 		}, w)
+
+		return
 	}
 
 	_, err = w.Write(json)
 	if err != nil {
 		f.responseWriter(http.StatusInternalServerError, map[string]interface{}{
-			"error": err,
+			"error": err.Error(),
 		}, w)
+
+		return
 	}
 }

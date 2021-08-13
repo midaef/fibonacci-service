@@ -8,9 +8,8 @@
 - go 1.16
 - docker & docker-compose
 - redis
-- evans
-- bloom rpc
-- postman
+- evans or bloom rpc
+- postman or curl
 
 ## DOCKER
 
@@ -92,7 +91,7 @@ POST http://localhost:8080/api/v1/fibonacci_sequences
 
 ### OR
 
-### Run 
+### Run curl 
 ```shell
 curl -XPOST -H "Content-type: application/json" -d '{"x":5, "y":15}' 'http://localhost:8080/api/v1/fibonacci_sequences'
 ```

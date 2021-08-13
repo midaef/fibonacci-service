@@ -20,6 +20,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 )
 
@@ -32,6 +33,8 @@ const httpPort = "8080"
 const grpcPort = "7001"
 
 const ip = "0.0.0.0"
+
+const redisPort = "6379"
 
 func TestExpectedErrorsGRPCFibonacci(t *testing.T) {
 	client, err := initTestGRPCClient()
@@ -356,6 +359,16 @@ func initTestGRPCServer() {
 }
 
 func initTestConfig() *config.Config {
+	redisHost := os.Getenv("REDIS_HOST")
+	if redisHost == "" {
+		redisHost = ip
+	}
+
+	rdbPort := os.Getenv("REDIS_PORT")
+	if rdbPort == "" {
+		rdbPort = redisPort
+	}
+
 	return &config.Config{
 		AppConfig: config.AppConfig{
 			IP:       ip,
@@ -364,8 +377,8 @@ func initTestConfig() *config.Config {
 		},
 		Redis: config.Redis{
 			DB:       0,
-			Host:     ip,
-			Port:     "6379",
+			Host:     redisHost,
+			Port:     rdbPort,
 			Password: "",
 		},
 	}

@@ -5,6 +5,7 @@ services:
     build: ./
     ports:
       - 7001:7001
+      - 8080:8080
   redis:
     image: "redis:alpine"
     hostname: redis

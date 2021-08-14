@@ -70,6 +70,8 @@ call FibonacciSequences
 ### Run for evans without Makefile
 ```shell
 evans api/fibonacci.proto -p 7001
+
+call FibonacciSequences
 ```
 
 ## Testing HTTP

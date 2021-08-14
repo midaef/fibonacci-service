@@ -30,4 +30,4 @@ jobs:
         go-version: 1.16
 
     - name: Build
-      run: go build -o fibonacci-service cmd/main.g
+      run: go build -o fibonacci-service cmd/main.go

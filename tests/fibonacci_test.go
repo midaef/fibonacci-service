@@ -327,7 +327,11 @@ func initTestHTTPServer() (*endpoint.EndpointContainer, error) {
 func initTestServer() (*config.Config, *endpoint.EndpointContainer, *app.App) {
 	cfg := initTestConfig()
 
-	logger, _ := zap.NewProduction()
+	logger, err := zap.NewProduction()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	defer logger.Sync()
 
 	app := app.NewApp(logger, cfg)
@@ -346,13 +350,16 @@ func initTestServer() (*config.Config, *endpoint.EndpointContainer, *app.App) {
 func initTestGRPCServer() {
 	config, serviceContainer, _ := initTestServer()
 
-	listener, _ := net.Listen("tcp", ":"+config.AppConfig.GRPCPort)
+	listener, err := net.Listen("tcp", ":"+config.AppConfig.GRPCPort)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	grpcServer := grpc.NewServer()
 
 	app_fibonacci.RegisterFibonacciServer(grpcServer, serviceContainer.FibonacciService)
 
-	err := grpcServer.Serve(listener)
+	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Fatal(err)
 	}

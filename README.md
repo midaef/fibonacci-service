@@ -43,11 +43,11 @@ redis:
 
 ### Build
 ```shell
-go build -o fibonacci-service cmd/main.go -config-path ./config/local-config.yaml
+go build -o fibonacci-service cmd/main.go
 ```
 ### Run
 ```shell
-./fibonacci-service
+./fibonacci-service -config-path ./config/local-config.yaml
 ```
 
 ### OR

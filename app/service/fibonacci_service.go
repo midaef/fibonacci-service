@@ -83,7 +83,7 @@ func (s *Service) Fibonacci(ctx context.Context, n uint64) (uint64, error) {
 	}
 
 	if n2 == "" {
-		nLocal, err := s.Fibonacci(ctx, n-1)
+		nLocal, err := s.Fibonacci(ctx, n-2)
 		if err != nil {
 			return 0, err
 		}

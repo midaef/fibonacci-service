@@ -1,6 +1,8 @@
 # FIBONACCI-SERVICE
 
-## PORT: 7001
+## GRPC-PORT:  7001
+## HTTP-PORT:  8080
+## REDIS-PORT: 6379
 
 ## LOCAL CONFIGURATION
 
@@ -41,11 +43,11 @@ redis:
 
 ### Build
 ```shell
-go build -o fibonacci-service cmd/main.go -config-path ./config/local-config.yaml
+go build -o fibonacci-service cmd/main.go
 ```
 ### Run
 ```shell
-./fibonacci-service
+./fibonacci-service -config-path ./config/local-config.yaml
 ```
 
 ### OR
